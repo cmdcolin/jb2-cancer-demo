@@ -1,17 +1,16 @@
 import { makeStyles } from '@material-ui/core/styles'
 import icon from './icon.ico'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import Paper from '@material-ui/core/Paper'
-import Accordion from '@material-ui/core/Accordion'
-import AccordionSummary from '@material-ui/core/AccordionSummary'
-import AccordionDetails from '@material-ui/core/AccordionDetails'
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Paper,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import LinkIcon from '@material-ui/icons/Link'
-
-import LinearView from './LinearView'
-import DrawerToc from './DrawerToc'
 
 const useStyles = makeStyles(theme => ({
   icon: {
@@ -38,7 +37,6 @@ const useStyles = makeStyles(theme => ({
   },
   sectionBody: {
     margin: 10,
-    fontSize: 20,
     lineHeight: 1.4,
   },
   linkFooter: {
@@ -67,7 +65,9 @@ const useStyles = makeStyles(theme => ({
     borderRadius: 4,
     padding: 5,
   },
-  anchor: {},
+  anchor: {
+    fontSize: 15,
+  },
 }))
 
 function Header() {
@@ -75,7 +75,7 @@ function Header() {
   return (
     <AppBar position="static">
       <Toolbar className={classes.toolbar}>
-        <Typography className={classes.title} variant="h3">
+        <Typography className={classes.title} variant="h6">
           <img alt="logo" src={icon} className={classes.icon} />
           JBrowse 2 Cancer Demo
         </Typography>
@@ -101,47 +101,23 @@ function Introduction() {
         >
           <LinkIcon />
         </a>
-        <Typography className={classes.sectionHeader} variant="h3">
+        <Typography className={classes.sectionHeader} variant="h6">
           Introduction
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
         <div className={classes.sectionBody}>
           <p>
-            Cancer is fundamentally a genetic disease. Because of this, the
-            genomics revolution has had a profound impact on the field of cancer
-            biology. The new discipline of cancer genomics has generated data at
-            an{' '}
-            <a
-              href="https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002195"
-              target="_blank"
-              rel="noreferrer"
-            >
-              astronomical scale
-            </a>
-            . Over the last decade, a large number of scientific consortiums
-            have applied short-read sequencing to thousands of cancer samples,
-            considerably accelerating our understanding of cancer.
-          </p>
-          <p>
-            In recent years, the speed of data generation has only accelerated,
-            and new long-read sequencing technologies have enabled the{' '}
-            <a
-              href="https://genome.cshlp.org/content/early/2018/06/28/gr.231100.117.abstract"
-              target="_blank"
-              rel="noreferrer"
-            >
-              exploration
-            </a>{' '}
-            of previously inaccessible aspects of cancer genome biology.
-            However, these technologies pose new challenges for genomic analysis
-            and visualization software. During the development of JBrowse 2, one
-            our core goals has been to develop new workflows and{' '}
-            <strong>views</strong> to help researchers derive insights ranging
-            from the genome scale to the nucleotide scale using diverse
-            sequencing technologies and data formats.
-          </p>
-          <p>
+            Cancer is a very complex disease that is fundamentally genetic.
+            Cancer genomes frequently have structural variants and driver
+            mutations that can be inspected in a genome browser. To help aid
+            cancer genomics visualization, JBrowse 2 adds many new features
+            including{' '}
+            <ul>
+              <li>Improved structural variant visualization</li>
+              <li>Whole genome overviews</li>
+              <li>Comparative genomics features</li>
+            </ul>
             This demo will use a variety of new powerful features of JBrowse 2
             to analyze the{' '}
             <a
@@ -155,33 +131,9 @@ function Introduction() {
             <a href="http://schatz-lab.org/" target="_blank" rel="noreferrer">
               Schatz Lab
             </a>{' '}
-            at Johns Hopkins University. You can follow along by using links
-            below which provide access to a demo instance of JBrowse 2 with the
-            necessary loaded data, as well as a list of data URLs that you can
-            load on your own. Additionally,{' '}
-            <strong>
-              every image with a blue border can be clicked on to open the
-              corresponding demo in JBrowse 2
-            </strong>
-            .
+            at Johns Hopkins University.{' '}
           </p>
-          <p className={classes.linkFooter}>
-            <a
-              href="https://s3.amazonaws.com/jbrowse.org/code/jb2/1322_cancer_genome_demo/index.html"
-              target="_blank"
-              rel="noreferrer"
-            >
-              JBrowse 2 Cancer Demo Link
-            </a>
-            <br />
-            <a
-              href="https://jbrowse.org/genomes/hg19/skbr3/data.txt"
-              target="_blank"
-              rel="noreferrer"
-            >
-              SKBR3 Data Resources
-            </a>
-          </p>
+          <p>You can follow along by using links below!</p>
         </div>
       </AccordionDetails>
     </Accordion>
@@ -225,72 +177,50 @@ function GlobalView() {
         >
           <LinkIcon />
         </a>
-        <Typography className={classes.sectionHeader} variant="h3">
-          A Global View
+        <Typography className={classes.sectionHeader} variant="h6">
+          SV inspector
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
         <div className={classes.sectionBody}>
           <p>
-            One of the core benefits of the development of long-read sequencing
-            technologies has been the greatly increased accuracy and resolution
-            of detecting structural variation. In order to accommodate the
-            analysis of structural variation, we have developed the SV
-            Inspector. The SV inspector is a combination of two{' '}
-            <strong>views</strong>:
-          </p>
-          <ol>
-            <li>
-              A Circular view which draws arcs connecting structural variants
-              across chromosomes
-            </li>
-            <li>
-              A Spreadsheet view which can be using to dynamically sort and
-              filter the data set being visualized
-            </li>
-          </ol>
-          <p>
-            The SV inspector can be opened from the menu:{' '}
+            JBrowse 2 adds a feature called the SV inspector that shows a
+            whole-genome circular overview along with a filterable table of
+            features. Users can upload their own VCF, BEDPE, STAR-fusion, or
+            other file types to the SV inspector. The SV inspector can be opened
+            from the menu bar:{' '}
             <strong className={classes.navPath}>
-              File {'-->'} Add {'-->'} SV Inspector
+              Add {'-->'} SV Inspector
             </strong>
           </p>
           <p>
-            Here is the SV Inspector loaded with{' '}
+            Here is a link to a live demo using the SV Inspector loaded with
+            SKBR3 variants called using Sniffles:{' '}
             <a
-              href="https://s3.amazonaws.com/jbrowse.org/genomes/hg19/skbr3/reads_lr_skbr3.fa_ngmlr-0.2.3_mapped.bam.sniffles1kb_auto_l8_s5_noalt.new.vcf"
+              href="https://jbrowse.org/code/jb2/v1.6.9/?config=test_data%2Fconfig_demo.json&session=share-0kAlMo4Ltr&password=ihc53"
               target="_blank"
               rel="noreferrer"
             >
-              SKBR3 Variants
-            </a>{' '}
-            called from PacBio long-reads data using Sniffles:
+              Live demo
+            </a>
           </p>
           <ClickableImage
-            link="https://s3.amazonaws.com/jbrowse.org/code/jb2/1322_cancer_genome_demo/index.html?config=test_data%2Fconfig_cancer.json&session=share-tChX293HVJ&password=OX04k"
+            link="https://jbrowse.org/code/jb2/v1.6.9/?config=test_data%2Fconfig_demo.json&session=share-0kAlMo4Ltr&password=ihc53"
             imgSrc="skbr3-sv-inspector.png"
             imgAlt="JBrowse 2 SV inspector with SKBR3 data"
           />
           <p>
-            Wow! With this view, it is visually apparent that SKBR3 has a
-            tremendous amount of structural variation. Chromosome 8 contains the
-            largest amount of variation within the SKBR3 genome. The spreadsheet
-            can be used to create a filter for all translocations originating
-            from chromosome 8. (The column filter controls can be accessed by
-            clicking on the column header.) The filter will cause the Circular
-            view to dynamically update:
+            This view shows all the inter-chromosomal translocation
+            (&lt;TRA&gt;) calls from the Sniffles dataset. We can see many of
+            the arcs originate from chr8, and we can even create a filter for
+            all translocations originating from chr8 by typing in the filter
+            box. The circular view and table will update themselves in response
           </p>
           <ClickableImage
-            link="https://s3.amazonaws.com/jbrowse.org/code/jb2/1322_cancer_genome_demo/index.html?config=test_data%2Fconfig_cancer.json&session=share-TovuCfqHzh&password=HniKM"
+            link="https://jbrowse.org/code/jb2/v1.6.9/?config=test_data%2Fconfig_demo.json&session=share-apCLknrDn7&password=dWQnr"
             imgSrc="skbr3-sv-inspector-chr8.png"
             imgAlt="JBrowse 2 SV inspector with SKBR3 data for chr8"
           />
-          <p>
-            Using the SV inspector, we were able to visually assess structural
-            variation on the genome scale. In the next section, we will explore
-            new <strong>views</strong> that can help to further analyze the
-            structural variation taking place on chromosome 8.
-          </p>
         </div>
       </AccordionDetails>
     </Accordion>
@@ -299,7 +229,6 @@ function GlobalView() {
 
 function DrillingDown() {
   const classes = useStyles()
-  // 125027 split detail
   return (
     <Accordion defaultExpanded={true}>
       <AccordionSummary
@@ -315,84 +244,52 @@ function DrillingDown() {
         >
           <LinkIcon />
         </a>
-        <Typography className={classes.sectionHeader} variant="h3">
-          Drilling Down
+        <Typography className={classes.sectionHeader} variant="h6">
+          Breakpoint split view
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
         <div className={classes.sectionBody}>
           <p>
-            While the genome scale <strong>view</strong> of structural variation
-            is informative, it is time to drill down to higher resolution, and
-            investigate one of these translocations. Clicking on one of the arcs
-            on the Circular <strong>view</strong> will open up the split detail{' '}
-            <strong>view</strong>:
+            From the SV inspector, we can click on individual arcs or rows in
+            the table to open up what we call the breakpoint split view. This
+            opens up both sides of a interchromosomal translocation event, and
+            can be used to show the read evidence that joins these two places,
+            as well as load other annotations to infer gene fusions for example.
           </p>
           <ClickableImage
-            link="https://s3.amazonaws.com/jbrowse.org/code/jb2/1322_cancer_genome_demo/?config=test_data%2Fconfig_cancer.json&session=share-4j_j0evV7V&password=0G6Mx"
+            link="https://jbrowse.org/code/jb2/v1.6.9/?config=test_data%2Fconfig_demo.json&session=share-ousEiZkmfW&password=9YFK1"
+            imgSrc="skbr3-click.png"
+            imgAlt="Clicking on an arc"
+          />
+          <p>
+            Here, we are clicking on an arc in the circular view (highlighted
+            black), and it pops open a view below.
+          </p>
+          <ClickableImage
+            link="https://jbrowse.org/code/jb2/v1.6.9/?config=test_data%2Fconfig_demo.json&session=share-ousEiZkmfW&password=9YFK1"
             imgSrc="skbr3-split-detail.png"
             imgAlt="SKBR3 chrom8 chrom17 split detail view"
           />
           <p>
-            With this <strong>view</strong> open, next we can toggle linked
-            scrolls and behavior across <strong>views</strong> using the button
-            in the top left corner, and then open the track for the PacBio
-            sequencing reads (splitters only):
+            The curved black lines show reads that are split-aligned to the
+            multiple chromosomes in this case. The green line shows the VCF
+            variant calls for this translocation even also.
           </p>
-          <ClickableImage
-            link="https://s3.amazonaws.com/jbrowse.org/code/jb2/1322_cancer_genome_demo/?config=test_data%2Fconfig_cancer.json&session=share-kxgcLjxfgE&password=l7tXf"
-            imgSrc="skbr3-split-pacbio.png"
-            imgAlt="SKBR3 split detail view with PacBio track"
-          />
-          <p>
-            The arcs connect reads across breakpoints. Scrolling down, there is
-            an interesting read right by the translocation point that also maps
-            to chromosome 17. Clicking on it, the read attributes show that this
-            read had supplementary alignments (SA) on chromosome 17. Right
-            clicking on the read gives several options:
-          </p>
-          <UnclickableImage
-            imgSrc="skbr3-read-options.png"
-            imgAlt="the options for an SKBR3 PacBio read"
-          />
+
           <p>
             Clicking on the "linear read vs. ref" option will open the following{' '}
             <strong>view</strong>:
           </p>
           <ClickableImage
-            link="https://s3.amazonaws.com/jbrowse.org/code/jb2/1322_cancer_genome_demo/index.html?config=test_data%2Fconfig_cancer.json&session=share-xA5W0bzORh&password=55UF7"
+            link="https://jbrowse.org/code/jb2/v1.6.9/?config=test_data%2Fconfig_demo.json&session=share-ZzPm6DASnc&password=SQBSk"
             imgSrc="skbr3-linear-vs-ref.png"
             imgAlt="A linear vs. ref view of a SKBR3 PacBio read"
           />
-          {/* https://en.wikipedia.org/wiki/GSDMB */}
           <p>
-            This <strong>view</strong> shows where the read maps onto the
-            reference genome. By zooming in and turning on the Gencode
-            annotation track, we can see that the read maps to both GSDMB on
-            chromosome 17, as well as another gene on chromosome 8:
-          </p>
-          <ClickableImage
-            link="https://s3.amazonaws.com/jbrowse.org/code/jb2/1322_cancer_genome_demo/?config=test_data%2Fconfig_cancer.json&session=share-w5e3cjDnVr&password=Fa4kO"
-            imgSrc="skbr3-gene-fusion.png"
-            imgAlt="A gene fusion between chrom17 and chrom8 in an skbr3 pacbio read"
-          />
-          <p>
-            Clicking on the gencode annotation on chromosome 8, we see that it
-            is TATDN1:
-          </p>
-          <div className={classes.unclickableImage}>
-            <img
-              style={{ width: '40%' }}
-              src="skbr3-TATDN1-info.png"
-              alt="skbr3 TATDN1 info"
-            />
-          </div>
-          <p>
-            Wow! Simply by performing visual analysis and leveraging the
-            integration between <strong>views</strong> in JBrowse 2, we have
-            honed in on an intuitive visualization of one of the reads
-            supporting the GSDMB-TATDN1 gene fusion that has been observed in
-            the SKBR3 cell line.
+            This figure, which appears sort of like a synteny visualization,
+            shows that a snippet of chr8 appears to have been translocated onto
+            chr11
           </p>
         </div>
       </AccordionDetails>
@@ -417,7 +314,7 @@ function Sharing() {
         >
           <LinkIcon />
         </a>
-        <Typography className={classes.sectionHeader} variant="h3">
+        <Typography className={classes.sectionHeader} variant="h6">
           Sharing With Collaborators
         </Typography>
       </AccordionSummary>
@@ -455,75 +352,6 @@ function Sharing() {
   )
 }
 
-function Embed() {
-  const classes = useStyles()
-  return (
-    <Accordion defaultExpanded={true}>
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls="introduction-content"
-        id="introduction-header"
-      >
-        <a
-          className={classes.anchor}
-          href="#embed"
-          name="embed"
-          onClick={event => event.stopPropagation()}
-        >
-          <LinkIcon />
-        </a>
-        <Typography className={classes.sectionHeader} variant="h3">
-          Embed JBrowse 2 in Your App
-        </Typography>
-      </AccordionSummary>
-      <AccordionDetails>
-        <div className={classes.sectionBody}>
-          <p>
-            In contrast to JBrowse 1, JBrowse 2 is designed to have many{' '}
-            <strong>views</strong> and features that work together as a robust,
-            standalone web application for genomic visualization and analysis.
-            However, it is still completely possible to embed JBrowse 2 in your
-            own application. We have published a{' '}
-            <a
-              href="https://github.com/GMOD/jbrowse-components/tree/master/products/jbrowse-react-linear-genome-view"
-              target="_blank"
-              rel="noreferrer"
-            >
-              linear genome <strong>view</strong> React component
-            </a>{' '}
-            which can be configured and embedded directly into a web page. In
-            fact, you can see what it looks like when configured with SKBR3 data
-            directly below this section. You can navigate to the locations of
-            the genes in the browser by clicking on them.
-          </p>
-          <p>
-            Importantly, you don't have to be a React developer to add this
-            component to your page. You can{' '}
-            <a
-              href="https://reactjs.org/docs/add-react-to-a-website.html#add-react-in-one-minute"
-              target="_blank"
-              rel="noreferrer"
-            >
-              add React in one minute
-            </a>{' '}
-            to your website, by adding the necessary CDNs along with the JBrowse
-            component. The source code for the embedded view in this demo can be
-            found{' '}
-            <a
-              href="https://github.com/elliothershberg/jb2-cancer-demo/blob/main/src/LinearView.js"
-              target="_blank"
-              rel="noreferrer"
-            >
-              here
-            </a>
-            . We can't wait to see the awesome ways you use this component!
-          </p>
-        </div>
-      </AccordionDetails>
-    </Accordion>
-  )
-}
-
 function Conclusion() {
   const classes = useStyles()
   return (
@@ -541,7 +369,7 @@ function Conclusion() {
         >
           <LinkIcon />
         </a>
-        <Typography className={classes.sectionHeader} variant="h3">
+        <Typography className={classes.sectionHeader} variant="h6">
           Conclusion
         </Typography>
       </AccordionSummary>
@@ -581,14 +409,10 @@ function App() {
   return (
     <div>
       <Header />
-      <DrawerToc />
       <Paper className={classes.paperBackground} elevation={3}>
         <Introduction />
         <GlobalView />
         <DrillingDown />
-        <Sharing />
-        <Embed />
-        <LinearView />
         <Conclusion />
       </Paper>
     </div>
